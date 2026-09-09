@@ -118,16 +118,9 @@ nav.navbar {
   font-size: 1.25rem;
   color: var(--green-dark);
 }
-.logo .mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: var(--green);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
+.logo-img {
+  height: 48px;
+  width: auto;
   flex-shrink: 0;
 }
 .logo .tag {
@@ -455,7 +448,6 @@ footer.site-footer {
   margin-bottom: 36px;
 }
 footer .logo { color: var(--white); }
-footer .logo .mark { background: var(--gold); color: var(--green-dark); }
 footer h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 14px; }
 footer ul li { margin-bottom: 10px; font-size: 0.9rem; }
 footer a:hover { color: var(--gold); }
