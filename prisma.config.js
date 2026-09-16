@@ -1,0 +1,8 @@
+require('dotenv').config({ path: '.env.local', quiet: true });
+const { defineConfig, env } = require('prisma/config');
+
+module.exports = defineConfig({
+  schema: 'prisma/schema.prisma',
+  migrations: { path: 'prisma/migrations' },
+  datasource: { url: env('DIRECT_URL') },
+});
