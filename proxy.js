@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 // Runs on the Edge runtime; getToken only verifies the JWT (via
 // NEXTAUTH_SECRET) and never touches Prisma/bcrypt, which are not
 // Edge-compatible and live in lib/authOptions.js instead.
-export async function middleware(req) {
+export async function proxy(req) {
   const { pathname } = req.nextUrl;
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
