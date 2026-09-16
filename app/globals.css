@@ -171,8 +171,8 @@ nav.navbar {
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(64vw, 260px);
-    background: rgba(20, 61, 36, 0.88);
+    width: 40vw;
+    background: rgba(20, 61, 36, 0.68);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     flex-direction: column;
