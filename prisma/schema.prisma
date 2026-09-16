@@ -11,7 +11,8 @@ model AdminUser {
   name         String
   email        String   @unique
   passwordHash String
-  role         String   @default("admin")
+  role         String   @default("STAFF") // one of: SUPER_ADMIN, MANAGER, STAFF -- validated in lib/permissions.js, not a DB enum
+  isProtected  Boolean  @default(false) // cannot be deleted or demoted via the dashboard, even by another Super Admin -- set directly in the DB, never exposed as a toggle in the UI
   createdAt    DateTime @default(now())
 }
 

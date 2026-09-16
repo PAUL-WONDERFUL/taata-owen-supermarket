@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ImageUploadField from './ImageUploadField.js';
 
-export default function MenuClient({ initialItems }) {
+export default function MenuClient({ initialItems, canDelete = true }) {
   const [items, setItems] = useState(initialItems);
   const [form, setForm] = useState({ name: '', category: '', description: '', price: '', imageUrl: '' });
   const [error, setError] = useState('');
@@ -99,7 +99,7 @@ export default function MenuClient({ initialItems }) {
                   <td>
                     <input type="checkbox" checked={item.isAvailable} onChange={(e) => updateItem(item.id, { isAvailable: e.target.checked })} />
                   </td>
-                  <td><button type="button" className="btn-danger" onClick={() => deleteItem(item.id)}>Delete</button></td>
+                  <td>{canDelete && <button type="button" className="btn-danger" onClick={() => deleteItem(item.id)}>Delete</button>}</td>
                 </tr>
               ))}
             </tbody>

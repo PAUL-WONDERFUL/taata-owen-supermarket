@@ -104,11 +104,13 @@ export default async function HomePage() {
                 <div className="dept-card" key={cat.id}>
                   <div className="dept-thumb">
                     {cat.imageUrl ? (
-                      <Image src={cat.imageUrl} alt={cat.name} width={200} height={120} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <Image src={cat.imageUrl} alt={cat.name} fill sizes="(max-width: 600px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
                     ) : '🛒'}
                   </div>
-                  <h4>{cat.name}</h4>
-                  <p>{cat.description}</p>
+                  <div className="dept-overlay">
+                    <h4>{cat.name}</h4>
+                    <p>{cat.description}</p>
+                  </div>
                 </div>
               ))}
             </div>

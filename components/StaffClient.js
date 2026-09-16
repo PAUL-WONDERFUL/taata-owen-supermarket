@@ -1,39 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { ROLE_LABELS } from '../lib/permissions.js';
+
+const ROLE_OPTIONS = ['SUPER_ADMIN', 'MANAGER', 'STAFF'];
 
 export default function StaffClient({ initialStaff, currentUserId }) {
   const [staff, setStaff] = useState(initialStaff);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'STAFF' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
-
-  const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '' });
-  const [pwError, setPwError] = useState('');
-  const [pwSuccess, setPwSuccess] = useState(false);
-  const [pwSaving, setPwSaving] = useState(false);
-
-  async function handleChangePassword(e) {
-    e.preventDefault();
-    setPwSaving(true);
-    setPwError('');
-    setPwSuccess(false);
-    try {
-      const res = await fetch(`/api/admin/staff/${currentUserId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pwForm),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      setPwSuccess(true);
-      setPwForm({ currentPassword: '', newPassword: '' });
-    } catch (err) {
-      setPwError(err.message || 'Could not change password.');
-    } finally {
-      setPwSaving(false);
-    }
-  }
 
   async function handleAdd(e) {
     e.preventDefault();
@@ -48,12 +24,26 @@ export default function StaffClient({ initialStaff, currentUserId }) {
       const created = await res.json();
       if (!res.ok) throw new Error(created.error);
       setStaff((prev) => [...prev, created]);
-      setForm({ name: '', email: '', password: '' });
+      setForm({ name: '', email: '', password: '', role: 'STAFF' });
     } catch (err) {
       setError(err.message || 'Could not add staff account.');
     } finally {
       setSaving(false);
     }
+  }
+
+  async function changeRole(id, role) {
+    const res = await fetch(`/api/admin/staff/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || 'Could not change role.');
+      return;
+    }
+    setStaff((prev) => prev.map((s) => (s.id === id ? data : s)));
   }
 
   async function deleteStaff(id) {
@@ -70,33 +60,6 @@ export default function StaffClient({ initialStaff, currentUserId }) {
   return (
     <>
       <div className="admin-panel">
-        <h2>Change Your Password</h2>
-        {pwError && <div className="form-error">{pwError}</div>}
-        {pwSuccess && <div className="form-success">Password updated.</div>}
-        <form onSubmit={handleChangePassword}>
-          <div className="form-row">
-            <div className="form-field">
-              <label>Current Password</label>
-              <input
-                type="password" required value={pwForm.currentPassword}
-                onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
-              />
-            </div>
-            <div className="form-field">
-              <label>New Password (min. 8 characters)</label>
-              <input
-                type="password" required minLength={8} value={pwForm.newPassword}
-                onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
-              />
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary btn-small" disabled={pwSaving}>
-            {pwSaving ? 'Updating…' : 'Update Password'}
-          </button>
-        </form>
-      </div>
-
-      <div className="admin-panel">
         <h2>Add a Staff Account</h2>
         {error && <div className="form-error">{error}</div>}
         <form onSubmit={handleAdd}>
@@ -110,9 +73,17 @@ export default function StaffClient({ initialStaff, currentUserId }) {
               <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
           </div>
-          <div className="form-field">
-            <label>Password (min. 8 characters)</label>
-            <input type="password" required minLength={8} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+          <div className="form-row">
+            <div className="form-field">
+              <label>Password (min. 8 characters)</label>
+              <input type="password" required minLength={8} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+            </div>
+            <div className="form-field">
+              <label>Role</label>
+              <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+                {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
+              </select>
+            </div>
           </div>
           <button type="submit" className="btn btn-primary btn-small" disabled={saving}>{saving ? 'Adding…' : 'Add Staff Account'}</button>
         </form>
@@ -121,14 +92,28 @@ export default function StaffClient({ initialStaff, currentUserId }) {
       <div className="admin-panel">
         <h2>All Accounts ({staff.length})</h2>
         <table className="admin-table">
-          <thead><tr><th>Name</th><th>Email</th><th>Added</th><th></th></tr></thead>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th></th></tr></thead>
           <tbody>
             {staff.map((s) => (
               <tr key={s.id}>
-                <td>{s.name} {s.id === currentUserId && <em style={{ color: 'var(--gray)', fontSize: '0.8rem' }}>(you)</em>}</td>
+                <td>
+                  {s.name} {s.id === currentUserId && <em style={{ color: 'var(--gray)', fontSize: '0.8rem' }}>(you)</em>}
+                  {s.isProtected && <span title="Protected account" style={{ marginLeft: 6 }}>🔒</span>}
+                </td>
                 <td>{s.email}</td>
+                <td>
+                  <select
+                    value={s.role} disabled={s.isProtected}
+                    onChange={(e) => changeRole(s.id, e.target.value)}
+                    style={{ padding: '4px 6px', fontSize: '0.85rem', border: '1px solid var(--gray-light)', borderRadius: 4 }}
+                  >
+                    {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
+                  </select>
+                </td>
                 <td>{new Date(s.createdAt).toLocaleDateString()}</td>
-                <td><button type="button" className="btn-danger" onClick={() => deleteStaff(s.id)}>Remove</button></td>
+                <td>
+                  {!s.isProtected && <button type="button" className="btn-danger" onClick={() => deleteStaff(s.id)}>Remove</button>}
+                </td>
               </tr>
             ))}
           </tbody>

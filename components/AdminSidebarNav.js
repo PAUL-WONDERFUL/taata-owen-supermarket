@@ -9,17 +9,19 @@ const LINKS = [
   { href: '/admin/media', label: 'Media Library' },
   { href: '/admin/categories', label: 'Categories' },
   { href: '/admin/menu', label: 'Restaurant Menu' },
-  { href: '/admin/staff', label: 'Staff Accounts' },
-  { href: '/admin/messages', label: 'Messages' },
+  { href: '/admin/messages', label: 'Messages', roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/staff', label: 'Staff Accounts', roles: ['SUPER_ADMIN'] },
+  { href: '/admin/account', label: 'My Account' },
 ];
 
-export default function AdminSidebarNav() {
+export default function AdminSidebarNav({ role }) {
   const pathname = usePathname();
+  const visibleLinks = LINKS.filter((link) => !link.roles || link.roles.includes(role));
 
   return (
     <nav className="admin-nav" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <div>
-        {LINKS.map((link) => (
+        {visibleLinks.map((link) => (
           <Link key={link.href} href={link.href} className={pathname === link.href ? 'active' : ''}>
             {link.label}
           </Link>

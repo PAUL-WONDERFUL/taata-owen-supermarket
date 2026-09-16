@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { prisma } from '../../../lib/prisma.js';
 
 export const revalidate = 30;
@@ -49,7 +50,12 @@ export default async function RestaurantPage() {
                 <h3>{category}</h3>
                 {categoryItems.map((item) => (
                   <div className="menu-item" key={item.id}>
-                    <div>
+                    {item.imageUrl && (
+                      <div className="menu-item-thumb">
+                        <Image src={item.imageUrl} alt={item.name} fill sizes="64px" style={{ objectFit: 'cover' }} />
+                      </div>
+                    )}
+                    <div className="menu-item-text">
                       <div className="name">{item.name}</div>
                       {item.description && <div className="desc">{item.description}</div>}
                     </div>

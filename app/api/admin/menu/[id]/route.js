@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../../../../../lib/authOptions.js';
+import { canDeleteContent } from '../../../../../lib/permissions.js';
 import { prisma } from '../../../../../lib/prisma.js';
 
 export async function PATCH(request, { params }) {
@@ -19,6 +22,11 @@ export async function PATCH(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  const session = await getServerSession(authOptions);
+  if (!canDeleteContent(session?.user?.role)) {
+    return NextResponse.json({ error: 'Only a Super Admin or Manager can delete this.' }, { status: 403 });
+  }
+
   const { id } = await params;
   await prisma.menuItem.delete({ where: { id } });
   return NextResponse.json({ ok: true });

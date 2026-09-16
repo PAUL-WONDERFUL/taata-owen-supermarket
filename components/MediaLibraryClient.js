@@ -5,7 +5,7 @@ import { upload } from '@vercel/blob/client';
 
 const CATEGORIES = ['SUPERMARKET', 'RESTAURANT', 'FOOD', 'PRODUCTS', 'EVENTS', 'OTHER'];
 
-export default function MediaLibraryClient({ initialImages }) {
+export default function MediaLibraryClient({ initialImages, canDelete = true }) {
   const [images, setImages] = useState(initialImages);
   const [uploading, setUploading] = useState(false);
   const [uploadCategory, setUploadCategory] = useState('SUPERMARKET');
@@ -100,7 +100,7 @@ export default function MediaLibraryClient({ initialImages }) {
                     <input type="checkbox" checked={img.isFeatured} onChange={(e) => updateImage(img.id, { isFeatured: e.target.checked })} />
                     Featured
                   </label>
-                  <button type="button" className="btn-danger" style={{ width: '100%' }} onClick={() => deleteImage(img.id)}>Delete</button>
+                  {canDelete && <button type="button" className="btn-danger" style={{ width: '100%' }} onClick={() => deleteImage(img.id)}>Delete</button>}
                 </div>
               </div>
             ))}

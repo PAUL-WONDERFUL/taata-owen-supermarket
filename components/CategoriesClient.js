@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ImageUploadField from './ImageUploadField.js';
 
-export default function CategoriesClient({ initialCategories }) {
+export default function CategoriesClient({ initialCategories, canDelete = true }) {
   const [categories, setCategories] = useState(initialCategories);
   const [form, setForm] = useState({ name: '', description: '', imageUrl: '' });
   const [error, setError] = useState('');
@@ -92,7 +92,7 @@ export default function CategoriesClient({ initialCategories }) {
                       style={{ border: '1px solid transparent', padding: '4px 6px', font: 'inherit', width: '100%' }}
                     />
                   </td>
-                  <td><button type="button" className="btn-danger" onClick={() => deleteCategory(cat.id)}>Delete</button></td>
+                  <td>{canDelete && <button type="button" className="btn-danger" onClick={() => deleteCategory(cat.id)}>Delete</button>}</td>
                 </tr>
               ))}
             </tbody>
