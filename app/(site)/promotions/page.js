@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import { prisma } from '../../../lib/prisma.js';
+import PromoCard from '../../../components/PromoCard.js';
 
 export const revalidate = 30;
 
@@ -7,15 +7,6 @@ export const metadata = {
   title: 'Promotions & Offers | Taata Owen Supermarket',
   description: 'Current promotions and special offers at Taata Owen Supermarket, Jinja.',
 };
-
-function formatPrice(price) {
-  return `UGX ${price.toLocaleString('en-US')}`;
-}
-
-function formatDateRange(start, end) {
-  const opts = { day: 'numeric', month: 'short' };
-  return `${new Date(start).toLocaleDateString('en-GB', opts)} – ${new Date(end).toLocaleDateString('en-GB', opts)}`;
-}
 
 export default async function PromotionsPage() {
   const now = new Date();
@@ -43,20 +34,7 @@ export default async function PromotionsPage() {
           ) : (
             <div className="grid grid-3">
               {promotions.map((promo) => (
-                <div className="promo-card" key={promo.id}>
-                  <div className="promo-photo">
-                    <span className="promo-badge">Offer</span>
-                    {promo.imageUrl && (
-                      <Image src={promo.imageUrl} alt={promo.title} fill sizes="(max-width: 600px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
-                    )}
-                  </div>
-                  <div className="promo-body">
-                    <h3>{promo.title}</h3>
-                    {promo.description && <p>{promo.description}</p>}
-                    {promo.price != null && <div className="promo-price">{formatPrice(promo.price)}</div>}
-                    <div className="promo-dates">Valid {formatDateRange(promo.startDate, promo.endDate)}</div>
-                  </div>
-                </div>
+                <PromoCard promo={promo} showDates key={promo.id} />
               ))}
             </div>
           )}

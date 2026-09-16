@@ -18,7 +18,7 @@ function getStatus(promo) {
 
 export default function PromotionsClient({ initialPromotions }) {
   const [promotions, setPromotions] = useState(initialPromotions);
-  const [form, setForm] = useState({ title: '', description: '', imageUrl: '', price: '', startDate: '', endDate: '' });
+  const [form, setForm] = useState({ title: '', description: '', imageUrl: '', originalPrice: '', price: '', startDate: '', endDate: '' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -35,7 +35,7 @@ export default function PromotionsClient({ initialPromotions }) {
       const created = await res.json();
       if (!res.ok) throw new Error(created.error);
       setPromotions((prev) => [created, ...prev]);
-      setForm({ title: '', description: '', imageUrl: '', price: '', startDate: '', endDate: '' });
+      setForm({ title: '', description: '', imageUrl: '', originalPrice: '', price: '', startDate: '', endDate: '' });
     } catch (err) {
       setError(err.message || 'Could not add promotion.');
     } finally {
@@ -83,10 +83,19 @@ export default function PromotionsClient({ initialPromotions }) {
               <input type="date" required value={form.endDate} onChange={(e) => setForm({ ...form, endDate: e.target.value })} />
             </div>
           </div>
-          <div className="form-field">
-            <label>Price (optional, UGX)</label>
-            <input type="number" min="0" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+          <div className="form-row">
+            <div className="form-field">
+              <label>Previous Price (optional, UGX)</label>
+              <input type="number" min="0" placeholder="Leave blank if none" value={form.originalPrice} onChange={(e) => setForm({ ...form, originalPrice: e.target.value })} />
+            </div>
+            <div className="form-field">
+              <label>Offer Price (optional, UGX)</label>
+              <input type="number" min="0" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+            </div>
           </div>
+          <p style={{ fontSize: '0.8rem', color: 'var(--gray)', marginTop: -8, marginBottom: 16 }}>
+            If you set a Previous Price, it will show crossed out next to the Offer Price on the site.
+          </p>
           <ImageUploadField label="Photo (optional)" value={form.imageUrl} onChange={(url) => setForm({ ...form, imageUrl: url })} />
           <button type="submit" className="btn btn-primary btn-small" disabled={saving}>{saving ? 'Adding…' : 'Add Promotion'}</button>
         </form>
@@ -98,7 +107,7 @@ export default function PromotionsClient({ initialPromotions }) {
           <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>No promotions yet — add your first one above.</p>
         ) : (
           <table className="admin-table">
-            <thead><tr><th></th><th>Title</th><th>Status</th><th>Start</th><th>End</th><th></th></tr></thead>
+            <thead><tr><th></th><th>Title</th><th>Status</th><th>Previous Price</th><th>Offer Price</th><th>Start</th><th>End</th><th></th></tr></thead>
             <tbody>
               {promotions.map((promo) => {
                 const status = getStatus(promo);
@@ -113,6 +122,20 @@ export default function PromotionsClient({ initialPromotions }) {
                       />
                     </td>
                     <td><span style={{ color: status.color, fontWeight: 700, fontSize: '0.8rem' }}>{status.label}</span></td>
+                    <td>
+                      <input
+                        type="number" min="0" placeholder="—" defaultValue={promo.originalPrice ?? ''}
+                        onBlur={(e) => Number(e.target.value || 0) !== (promo.originalPrice || 0) && updatePromotion(promo.id, { originalPrice: e.target.value })}
+                        style={{ width: 100, border: '1px solid var(--gray-light)', borderRadius: 4, padding: '4px 6px' }}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number" min="0" placeholder="—" defaultValue={promo.price ?? ''}
+                        onBlur={(e) => Number(e.target.value || 0) !== (promo.price || 0) && updatePromotion(promo.id, { price: e.target.value })}
+                        style={{ width: 100, border: '1px solid var(--gray-light)', borderRadius: 4, padding: '4px 6px' }}
+                      />
+                    </td>
                     <td>
                       <input
                         type="date" defaultValue={toDateInputValue(promo.startDate)}

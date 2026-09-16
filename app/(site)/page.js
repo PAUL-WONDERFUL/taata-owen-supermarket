@@ -1,12 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '../../lib/prisma.js';
+import PromoCard from '../../components/PromoCard.js';
 
 export const revalidate = 60;
-
-function formatPrice(price) {
-  return `UGX ${price.toLocaleString('en-US')}`;
-}
 
 async function getHomeData() {
   const now = new Date();
@@ -140,19 +137,7 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-3">
               {promotions.map((promo) => (
-                <div className="promo-card" key={promo.id}>
-                  <div className="promo-photo">
-                    <span className="promo-badge">Offer</span>
-                    {promo.imageUrl && (
-                      <Image src={promo.imageUrl} alt={promo.title} fill sizes="(max-width: 600px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
-                    )}
-                  </div>
-                  <div className="promo-body">
-                    <h3>{promo.title}</h3>
-                    {promo.description && <p>{promo.description}</p>}
-                    {promo.price != null && <div className="promo-price">{formatPrice(promo.price)}</div>}
-                  </div>
-                </div>
+                <PromoCard promo={promo} key={promo.id} />
               ))}
             </div>
             <div style={{ textAlign: 'center', marginTop: 32 }}>

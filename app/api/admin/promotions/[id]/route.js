@@ -17,6 +17,7 @@ export async function PATCH(request, { params }) {
   if (body.title !== undefined) data.title = String(body.title).trim();
   if (body.description !== undefined) data.description = body.description ? String(body.description).trim() : null;
   if (body.imageUrl !== undefined) data.imageUrl = body.imageUrl || null;
+  if (body.originalPrice !== undefined) data.originalPrice = body.originalPrice !== '' && body.originalPrice !== null ? Number(body.originalPrice) : null;
   if (body.price !== undefined) data.price = body.price !== '' && body.price !== null ? Number(body.price) : null;
   if (body.startDate !== undefined) data.startDate = new Date(body.startDate);
   if (body.endDate !== undefined) data.endDate = new Date(body.endDate);

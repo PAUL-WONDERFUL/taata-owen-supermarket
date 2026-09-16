@@ -41,6 +41,7 @@ export async function POST(request) {
       title,
       description: body.description ? String(body.description).trim() : null,
       imageUrl: body.imageUrl || null,
+      originalPrice: body.originalPrice !== undefined && body.originalPrice !== '' ? Number(body.originalPrice) : null,
       price: body.price !== undefined && body.price !== '' ? Number(body.price) : null,
       startDate,
       endDate,

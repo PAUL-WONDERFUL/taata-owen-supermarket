@@ -64,6 +64,7 @@ model Promotion {
   title       String
   description String?
   imageUrl    String?
+  originalPrice Int? // shown crossed out next to the offer price, when set
   price       Int?
   startDate   DateTime
   endDate     DateTime
