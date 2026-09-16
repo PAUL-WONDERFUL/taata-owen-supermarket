@@ -6,12 +6,14 @@ export const dynamic = 'force-dynamic';
 
 export default async function AdminOverviewPage() {
   const session = await getServerSession(authOptions);
+  const now = new Date();
 
-  const [categoryCount, menuCount, galleryCount, staffCount, recentUploads] = await Promise.all([
+  const [categoryCount, menuCount, galleryCount, staffCount, activePromoCount, recentUploads] = await Promise.all([
     prisma.category.count(),
     prisma.menuItem.count(),
     prisma.galleryImage.count(),
     prisma.adminUser.count(),
+    prisma.promotion.count({ where: { startDate: { lte: now }, endDate: { gte: now } } }),
     prisma.galleryImage.findMany({ orderBy: { createdAt: 'desc' }, take: 5 }),
   ]);
 
@@ -36,6 +38,10 @@ export default async function AdminOverviewPage() {
         <div className="stat-card">
           <div className="stat-label">Gallery Photos</div>
           <div className="stat-value">{galleryCount}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label">Active Promotions</div>
+          <div className="stat-value">{activePromoCount}</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Staff Accounts</div>

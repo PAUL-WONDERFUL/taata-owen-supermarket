@@ -59,6 +59,19 @@ model GalleryImage {
   createdAt  DateTime        @default(now())
 }
 
+model Promotion {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String?
+  price       Int?
+  startDate   DateTime
+  endDate     DateTime
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model ContactMessage {
   id        String   @id @default(cuid())
   name      String

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../../lib/authOptions.js';
-import { ROLES, canManageStaff } from '../../../../lib/permissions.js';
+import { ROLES, canManageStaff, canAddStaff } from '../../../../lib/permissions.js';
 import { prisma } from '../../../../lib/prisma.js';
 
 export async function GET() {
@@ -20,15 +20,19 @@ export async function GET() {
 
 export async function POST(request) {
   const session = await getServerSession(authOptions);
-  if (!canManageStaff(session?.user?.role)) {
-    return NextResponse.json({ error: 'Only a Super Admin can add staff accounts.' }, { status: 403 });
+  const actorRole = session?.user?.role;
+  if (!canAddStaff(actorRole)) {
+    return NextResponse.json({ error: 'Only a Super Admin or Manager can add staff accounts.' }, { status: 403 });
   }
 
   const body = await request.json();
   const name = String(body.name || '').trim();
   const email = String(body.email || '').trim().toLowerCase();
   const password = String(body.password || '');
-  const role = ROLES.includes(body.role) ? body.role : 'STAFF';
+
+  // A Manager can only ever create Staff-tier accounts, regardless of what's
+  // sent -- never Manager or Super Admin. Only a Super Admin can choose the role.
+  const role = actorRole === 'SUPER_ADMIN' && ROLES.includes(body.role) ? body.role : 'STAFF';
 
   if (!name || !email) {
     return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });

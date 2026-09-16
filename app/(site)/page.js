@@ -4,16 +4,26 @@ import { prisma } from '../../lib/prisma.js';
 
 export const revalidate = 60;
 
+function formatPrice(price) {
+  return `UGX ${price.toLocaleString('en-US')}`;
+}
+
 async function getHomeData() {
-  const [categories, galleryPreview] = await Promise.all([
+  const now = new Date();
+  const [categories, galleryPreview, promotions] = await Promise.all([
     prisma.category.findMany({ orderBy: { sortOrder: 'asc' }, take: 8 }),
     prisma.galleryImage.findMany({ orderBy: { sortOrder: 'asc' }, take: 4 }),
+    prisma.promotion.findMany({
+      where: { startDate: { lte: now }, endDate: { gte: now } },
+      orderBy: { endDate: 'asc' },
+      take: 3,
+    }),
   ]);
-  return { categories, galleryPreview };
+  return { categories, galleryPreview, promotions };
 }
 
 export default async function HomePage() {
-  const { categories, galleryPreview } = await getHomeData();
+  const { categories, galleryPreview, promotions } = await getHomeData();
 
   return (
     <>
@@ -120,6 +130,37 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {promotions.length > 0 && (
+        <section>
+          <div className="container">
+            <div className="section-head">
+              <span className="eyebrow">Don&apos;t Miss Out</span>
+              <h2>Current Offers</h2>
+            </div>
+            <div className="grid grid-3">
+              {promotions.map((promo) => (
+                <div className="promo-card" key={promo.id}>
+                  <div className="promo-photo">
+                    <span className="promo-badge">Offer</span>
+                    {promo.imageUrl && (
+                      <Image src={promo.imageUrl} alt={promo.title} fill sizes="(max-width: 600px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                    )}
+                  </div>
+                  <div className="promo-body">
+                    <h3>{promo.title}</h3>
+                    {promo.description && <p>{promo.description}</p>}
+                    {promo.price != null && <div className="promo-price">{formatPrice(promo.price)}</div>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: 32 }}>
+              <Link href="/promotions" className="btn btn-outline-dark">See All Offers</Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {galleryPreview.length > 0 && (
         <section>

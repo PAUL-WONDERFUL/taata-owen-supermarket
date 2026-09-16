@@ -9,8 +9,9 @@ const LINKS = [
   { href: '/admin/media', label: 'Media Library' },
   { href: '/admin/categories', label: 'Categories' },
   { href: '/admin/menu', label: 'Restaurant Menu' },
+  { href: '/admin/promotions', label: 'Promotions', roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/messages', label: 'Messages', roles: ['SUPER_ADMIN', 'MANAGER'] },
-  { href: '/admin/staff', label: 'Staff Accounts', roles: ['SUPER_ADMIN'] },
+  { href: '/admin/staff', label: 'Staff Accounts', roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/account', label: 'My Account' },
 ];
 
