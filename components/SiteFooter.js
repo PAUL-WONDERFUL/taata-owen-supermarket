@@ -32,7 +32,7 @@ export default function SiteFooter() {
             <ul>
               <li>Nizam Road, Jinja, Uganda</li>
               <li>+256 756 761585</li>
-              <li>Daily, 8am – 10pm</li>
+              <li>Open 24/7</li>
             </ul>
           </div>
           <div>

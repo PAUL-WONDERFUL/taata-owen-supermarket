@@ -39,7 +39,7 @@ export default async function HomePage() {
             <h3>Visit Us Today</h3>
             <ul>
               <li><span className="ico">📍</span> Nizam Road, Jinja, Uganda</li>
-              <li><span className="ico">🕗</span> Open every day, 8:00 AM – 10:00 PM</li>
+              <li><span className="ico">🕗</span> Open 24/7 — every day, all day</li>
               <li><span className="ico">📞</span> +256 756 761585</li>
               <li><span className="ico">🍽️</span> In-house restaurant on site</li>
             </ul>
@@ -55,7 +55,7 @@ export default async function HomePage() {
           </div>
           <div className="item">
             <span className="ico">🕗</span>
-            <div><h4>Opening Hours</h4><p>Daily, 8:00 AM – 10:00 PM</p></div>
+            <div><h4>Opening Hours</h4><p>Open 24/7 — Every Day</p></div>
           </div>
           <div className="item">
             <span className="ico">📞</span>

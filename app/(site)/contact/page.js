@@ -2,7 +2,7 @@ import ContactForm from '../../../components/ContactForm.js';
 
 export const metadata = {
   title: 'Contact Us | Taata Owen Supermarket',
-  description: 'Visit or contact Taata Owen Supermarket on Nizam Road, Jinja, Uganda. Open daily 8am–10pm. Call +256 756 761585.',
+  description: 'Visit or contact Taata Owen Supermarket on Nizam Road, Jinja, Uganda. Open 24/7. Call +256 756 761585.',
 };
 
 export default function ContactPage() {
@@ -30,7 +30,7 @@ export default function ContactPage() {
                 </li>
                 <li>
                   <span className="ico">🕗</span>
-                  <div><strong>Opening Hours</strong><p style={{ color: 'var(--gray)' }}>Every day, 8:00 AM – 10:00 PM</p></div>
+                  <div><strong>Opening Hours</strong><p style={{ color: 'var(--gray)' }}>Open 24/7 — Every Day</p></div>
                 </li>
                 <li>
                   <span className="ico">📞</span>
