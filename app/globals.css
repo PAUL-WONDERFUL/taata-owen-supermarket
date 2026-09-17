@@ -459,25 +459,28 @@ section { padding: 72px 0; }
 .menu-item .desc { color: var(--gray); font-size: 0.85rem; margin-top: 2px; }
 .menu-item .price { color: var(--green); font-weight: 700; white-space: nowrap; }
 
-.menu-section-banner {
+/* A section with a photo becomes its own card: the image fills the
+   card behind the content (auto-height, sized by however many items
+   are in it -- no forced crop), with a dark scrim so the item list
+   stays readable sitting on top of it, "glass"-style like the rest
+   of the site's photo overlays. */
+.menu-section.has-photo {
   position: relative;
-  aspect-ratio: 21 / 8;
   border-radius: var(--radius);
   overflow: hidden;
-  margin-bottom: 18px;
+  padding: 26px 22px 10px;
+  box-shadow: var(--shadow);
 }
-.menu-section-banner-overlay {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 24px 20px 14px;
-  background: linear-gradient(transparent, rgba(10, 30, 18, 0.82));
-}
-.menu-section-banner-overlay h3 {
-  margin: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-  color: var(--white);
-}
+.menu-section-bg { position: absolute; inset: 0; z-index: 0; }
+.menu-section-scrim { position: absolute; inset: 0; z-index: 1; background: rgba(10, 30, 18, 0.7); }
+.menu-section-content { position: relative; z-index: 2; }
+.menu-section.has-photo h3 { color: var(--white); border-bottom-color: var(--gold); }
+.menu-section.has-photo .menu-item { border-bottom-color: rgba(255, 255, 255, 0.25); }
+.menu-section.has-photo .menu-item .name { color: var(--white); }
+.menu-section.has-photo .menu-item .desc { color: rgba(255, 255, 255, 0.78); }
+.menu-section.has-photo .menu-item .price,
+.menu-section.has-photo .variant-price { color: var(--gold); }
+.menu-section.has-photo .variant-label { color: rgba(255, 255, 255, 0.7); }
 
 .menu-item-variants {
   display: flex;
@@ -732,13 +735,21 @@ footer a:hover { color: var(--gold); }
 .stat-card .stat-label { font-size: 0.82rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
 .stat-card .stat-value { font-size: 2rem; font-weight: 700; color: var(--green-dark); margin-top: 6px; }
 
-.admin-panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--gray-light); padding: 24px; margin-bottom: 24px; }
+.admin-panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--gray-light); padding: 24px; margin-bottom: 24px; overflow-x: auto; }
 .admin-panel h2 { font-size: 1.1rem; margin-bottom: 16px; }
 
-.admin-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-.admin-table th { text-align: left; padding: 10px 12px; color: var(--gray); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 2px solid var(--gray-light); }
+.admin-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.9rem; }
+.admin-table th { text-align: left; padding: 10px 12px; color: var(--gray); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 2px solid var(--gray-light); white-space: nowrap; }
 .admin-table td { padding: 12px; border-bottom: 1px solid var(--gray-light); vertical-align: middle; }
 .admin-table img.thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 6px; }
+
+.image-upload-row { display: flex; align-items: center; gap: 12px; }
+.image-upload-preview { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.image-upload-preview-empty {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 0.65rem; color: var(--gray); background: var(--cream);
+  border: 1px dashed var(--gray-light);
+}
 
 .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .form-field label { font-size: 0.85rem; font-weight: 600; color: var(--green-dark); }

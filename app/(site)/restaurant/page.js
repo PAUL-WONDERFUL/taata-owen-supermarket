@@ -43,39 +43,43 @@ export default async function RestaurantPage() {
             <p style={{ textAlign: 'center', color: 'var(--gray)' }}>The menu will appear here once items are added in the admin dashboard.</p>
           ) : (
             nonEmptyCategories.map((category) => (
-              <div className="menu-section" key={category.id}>
+              <div className={`menu-section${category.imageUrl ? ' has-photo' : ''}`} key={category.id}>
                 {category.imageUrl && (
-                  <div className="menu-section-banner">
-                    <Image src={category.imageUrl} alt={category.name} fill sizes="100vw" style={{ objectFit: 'cover' }} />
-                    <div className="menu-section-banner-overlay"><h3>{category.name}</h3></div>
-                  </div>
-                )}
-                {!category.imageUrl && <h3>{category.name}</h3>}
-                {category.items.map((item) => (
-                  <div className="menu-item" key={item.id}>
-                    {item.imageUrl && (
-                      <div className="menu-item-thumb">
-                        <Image src={item.imageUrl} alt={item.name} fill sizes="64px" style={{ objectFit: 'cover' }} />
-                      </div>
-                    )}
-                    <div className="menu-item-text">
-                      <div className="name">{item.name}</div>
-                      {item.description && <div className="desc">{item.description}</div>}
+                  <>
+                    <div className="menu-section-bg">
+                      <Image src={category.imageUrl} alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} />
                     </div>
-                    {item.variants.length > 0 ? (
-                      <div className="menu-item-variants">
-                        {item.variants.map((v) => (
-                          <div className="variant-row" key={v.id}>
-                            <span className="variant-label">{v.label}</span>
-                            <span className="variant-price">{formatPrice(v.price)}</span>
-                          </div>
-                        ))}
+                    <div className="menu-section-scrim" />
+                  </>
+                )}
+                <div className="menu-section-content">
+                  <h3>{category.name}</h3>
+                  {category.items.map((item) => (
+                    <div className="menu-item" key={item.id}>
+                      {item.imageUrl && (
+                        <div className="menu-item-thumb">
+                          <Image src={item.imageUrl} alt={item.name} fill sizes="64px" style={{ objectFit: 'cover' }} />
+                        </div>
+                      )}
+                      <div className="menu-item-text">
+                        <div className="name">{item.name}</div>
+                        {item.description && <div className="desc">{item.description}</div>}
                       </div>
-                    ) : (
-                      <div className="price">{formatPrice(item.price)}</div>
-                    )}
-                  </div>
-                ))}
+                      {item.variants.length > 0 ? (
+                        <div className="menu-item-variants">
+                          {item.variants.map((v) => (
+                            <div className="variant-row" key={v.id}>
+                              <span className="variant-label">{v.label}</span>
+                              <span className="variant-price">{formatPrice(v.price)}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="price">{formatPrice(item.price)}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             ))
           )}
