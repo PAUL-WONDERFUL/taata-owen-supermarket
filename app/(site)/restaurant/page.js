@@ -12,21 +12,18 @@ function formatPrice(price) {
   return `UGX ${price.toLocaleString('en-US')}`;
 }
 
-function groupByCategory(items) {
-  const groups = new Map();
-  for (const item of items) {
-    if (!groups.has(item.category)) groups.set(item.category, []);
-    groups.get(item.category).push(item);
-  }
-  return groups;
-}
-
 export default async function RestaurantPage() {
-  const items = await prisma.menuItem.findMany({
-    where: { isAvailable: true },
-    orderBy: [{ category: 'asc' }, { sortOrder: 'asc' }],
+  const categories = await prisma.menuCategory.findMany({
+    orderBy: { sortOrder: 'asc' },
+    include: {
+      items: {
+        where: { isAvailable: true },
+        orderBy: { sortOrder: 'asc' },
+        include: { variants: { orderBy: { sortOrder: 'asc' } } },
+      },
+    },
   });
-  const grouped = groupByCategory(items);
+  const nonEmptyCategories = categories.filter((c) => c.items.length > 0);
 
   return (
     <>
@@ -42,13 +39,19 @@ export default async function RestaurantPage() {
 
       <section>
         <div className="container">
-          {grouped.size === 0 ? (
+          {nonEmptyCategories.length === 0 ? (
             <p style={{ textAlign: 'center', color: 'var(--gray)' }}>The menu will appear here once items are added in the admin dashboard.</p>
           ) : (
-            [...grouped.entries()].map(([category, categoryItems]) => (
-              <div className="menu-section" key={category}>
-                <h3>{category}</h3>
-                {categoryItems.map((item) => (
+            nonEmptyCategories.map((category) => (
+              <div className="menu-section" key={category.id}>
+                {category.imageUrl && (
+                  <div className="menu-section-banner">
+                    <Image src={category.imageUrl} alt={category.name} fill sizes="100vw" style={{ objectFit: 'cover' }} />
+                    <div className="menu-section-banner-overlay"><h3>{category.name}</h3></div>
+                  </div>
+                )}
+                {!category.imageUrl && <h3>{category.name}</h3>}
+                {category.items.map((item) => (
                   <div className="menu-item" key={item.id}>
                     {item.imageUrl && (
                       <div className="menu-item-thumb">
@@ -59,7 +62,18 @@ export default async function RestaurantPage() {
                       <div className="name">{item.name}</div>
                       {item.description && <div className="desc">{item.description}</div>}
                     </div>
-                    <div className="price">{formatPrice(item.price)}</div>
+                    {item.variants.length > 0 ? (
+                      <div className="menu-item-variants">
+                        {item.variants.map((v) => (
+                          <div className="variant-row" key={v.id}>
+                            <span className="variant-label">{v.label}</span>
+                            <span className="variant-price">{formatPrice(v.price)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="price">{formatPrice(item.price)}</div>
+                    )}
                   </div>
                 ))}
               </div>

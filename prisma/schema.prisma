@@ -27,17 +27,39 @@ model Category {
   updatedAt   DateTime @updatedAt
 }
 
+model MenuCategory {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  imageUrl  String?
+  sortOrder Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     MenuItem[]
+}
+
 model MenuItem {
-  id          String   @id @default(cuid())
+  id          String            @id @default(cuid())
   name        String
   description String?
-  price       Int
-  category    String
+  price       Int? // flat price; null when the item uses variants instead
+  categoryId  String
+  category    MenuCategory      @relation(fields: [categoryId], references: [id])
   imageUrl    String?
-  isAvailable Boolean  @default(true)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  isAvailable Boolean           @default(true)
+  sortOrder   Int               @default(0)
+  variants    MenuItemVariant[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model MenuItemVariant {
+  id         String   @id @default(cuid())
+  menuItemId String
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  label      String // e.g. "1kg", "2kg", "Slice", "Medium", "Large"
+  price      Int
+  sortOrder  Int      @default(0)
 }
 
 enum GalleryCategory {

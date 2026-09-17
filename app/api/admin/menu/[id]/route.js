@@ -10,14 +10,28 @@ export async function PATCH(request, { params }) {
 
   const data = {};
   if (body.name !== undefined) data.name = String(body.name).trim();
-  if (body.category !== undefined) data.category = String(body.category).trim();
+  if (body.categoryId !== undefined) data.categoryId = String(body.categoryId).trim();
   if (body.description !== undefined) data.description = body.description ? String(body.description).trim() : null;
-  if (body.price !== undefined) data.price = Number(body.price);
   if (body.imageUrl !== undefined) data.imageUrl = body.imageUrl || null;
   if (body.isAvailable !== undefined) data.isAvailable = Boolean(body.isAvailable);
   if (body.sortOrder !== undefined) data.sortOrder = Number(body.sortOrder);
 
-  const item = await prisma.menuItem.update({ where: { id }, data });
+  if (body.variants !== undefined) {
+    const variants = Array.isArray(body.variants) ? body.variants.filter((v) => v.label && v.price !== '') : [];
+    data.price = variants.length > 0 ? null : (body.price !== undefined ? Number(body.price) : undefined);
+    data.variants = {
+      deleteMany: {},
+      create: variants.map((v, i) => ({ label: String(v.label).trim(), price: Number(v.price), sortOrder: i })),
+    };
+  } else if (body.price !== undefined) {
+    data.price = Number(body.price);
+  }
+
+  const item = await prisma.menuItem.update({
+    where: { id },
+    data,
+    include: { category: true, variants: { orderBy: { sortOrder: 'asc' } } },
+  });
   return NextResponse.json(item);
 }
 

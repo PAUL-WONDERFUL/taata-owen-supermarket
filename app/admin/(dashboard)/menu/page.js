@@ -8,12 +8,18 @@ export const dynamic = 'force-dynamic';
 
 export default async function MenuPage() {
   const session = await getServerSession(authOptions);
-  const items = await prisma.menuItem.findMany({ orderBy: [{ category: 'asc' }, { sortOrder: 'asc' }] });
+  const [items, categories] = await Promise.all([
+    prisma.menuItem.findMany({
+      include: { category: true, variants: { orderBy: { sortOrder: 'asc' } } },
+      orderBy: [{ category: { sortOrder: 'asc' } }, { sortOrder: 'asc' }],
+    }),
+    prisma.menuCategory.findMany({ orderBy: { sortOrder: 'asc' } }),
+  ]);
 
   return (
     <>
       <div className="admin-topline"><h1>Restaurant Menu</h1></div>
-      <MenuClient initialItems={items} canDelete={canDeleteContent(session?.user?.role)} />
+      <MenuClient initialItems={items} categories={categories} canDelete={canDeleteContent(session?.user?.role)} />
     </>
   );
 }
