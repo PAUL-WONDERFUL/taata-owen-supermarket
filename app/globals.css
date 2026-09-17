@@ -214,6 +214,16 @@ nav.navbar {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hero.has-photo { background: none; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(20, 61, 36, 0.88), rgba(31, 122, 61, 0.78) 70%);
 }
 .hero-eyebrow {
   display: inline-block;
@@ -635,6 +645,32 @@ footer a:hover { color: var(--gold); }
 @media (max-width: 600px) {
   .promo-alert-floating { bottom: 66px; right: 14px; width: 46px; height: 46px; font-size: 1.2rem; }
 }
+
+/* ===== Home splash screen ===== */
+.home-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+.home-splash img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.home-splash.fade-out { opacity: 0; pointer-events: none; }
+
+/* ===== Admin login background photo ===== */
+.login-shell.has-photo { position: relative; overflow: hidden; }
+.login-shell-bg { position: absolute; inset: 0; z-index: 0; }
+.login-shell-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(20, 61, 36, 0.9), rgba(31, 122, 61, 0.82) 70%);
+}
+.login-shell.has-photo .login-card { position: relative; z-index: 2; }
 
 /* ===== Gallery: filter tabs, hover-zoom, lightbox ===== */
 .gallery-filters {
