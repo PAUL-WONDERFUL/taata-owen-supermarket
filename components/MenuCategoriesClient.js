@@ -54,9 +54,9 @@ export default function MenuCategoriesClient({ initialCategories, canDelete = tr
   return (
     <>
       <div className="admin-panel">
-        <h2>Add a Menu Section</h2>
+        <h2>Add a New Menu Section</h2>
         <p style={{ fontSize: '0.85rem', color: 'var(--gray)', marginBottom: 16 }}>
-          Sections group menu items on the public Restaurant page (e.g. Pizza, Pastries, Drinks) and show at the top of that group. New sections are added to the end -- reorder them below.
+          Only use this form for a section that doesn&apos;t exist yet. To add or change the photo on an <strong>existing</strong> section (like Breakfast or Pizza), scroll down to &quot;All Sections&quot; and upload it directly on that row.
         </p>
         {error && <div className="form-error">{error}</div>}
         <form onSubmit={handleAdd}>
@@ -75,11 +75,13 @@ export default function MenuCategoriesClient({ initialCategories, canDelete = tr
           <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>No sections yet — add your first one above.</p>
         ) : (
           <table className="admin-table">
-            <thead><tr><th></th><th>Name</th><th>Order</th><th></th></tr></thead>
+            <thead><tr><th>Photo</th><th>Name</th><th>Order</th><th></th></tr></thead>
             <tbody>
               {categories.map((cat) => (
                 <tr key={cat.id}>
-                  <td>{cat.imageUrl ? <img src={cat.imageUrl} alt="" className="thumb" /> : '—'}</td>
+                  <td style={{ minWidth: 140 }}>
+                    <ImageUploadField value={cat.imageUrl} onChange={(url) => updateCategory(cat.id, { imageUrl: url })} />
+                  </td>
                   <td>
                     <input
                       type="text" defaultValue={cat.name}

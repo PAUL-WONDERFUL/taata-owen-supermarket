@@ -28,7 +28,7 @@ export default function ImageUploadField({ label, value, onChange }) {
 
   return (
     <div className="form-field">
-      <label>{label}</label>
+      {label && <label>{label}</label>}
       {value && (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={value} alt="Preview" style={{ width: 120, height: 90, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />

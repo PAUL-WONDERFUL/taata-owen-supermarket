@@ -18,6 +18,16 @@ export async function POST(request) {
     return NextResponse.json({ error: 'A name is required.' }, { status: 400 });
   }
 
+  const existing = await prisma.menuCategory.findFirst({
+    where: { name: { equals: name, mode: 'insensitive' } },
+  });
+  if (existing) {
+    return NextResponse.json(
+      { error: `A section named "${existing.name}" already exists. Edit its photo directly in the table below instead of adding a new one.` },
+      { status: 409 },
+    );
+  }
+
   const count = await prisma.menuCategory.count();
   const category = await prisma.menuCategory.create({
     data: {
