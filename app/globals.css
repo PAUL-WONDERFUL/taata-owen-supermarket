@@ -218,12 +218,17 @@ nav.navbar {
   z-index: 2;
 }
 .hero.has-photo { background: none; }
+.hero.has-photo .hero-eyebrow,
+.hero.has-photo h1,
+.hero.has-photo p {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(20, 61, 36, 0.88), rgba(31, 122, 61, 0.78) 70%);
+  background: linear-gradient(135deg, rgba(20, 61, 36, 0.55), rgba(31, 122, 61, 0.42) 70%);
 }
 .hero-eyebrow {
   display: inline-block;
@@ -668,7 +673,7 @@ footer a:hover { color: var(--gold); }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(20, 61, 36, 0.9), rgba(31, 122, 61, 0.82) 70%);
+  background: linear-gradient(135deg, rgba(20, 61, 36, 0.55), rgba(31, 122, 61, 0.42) 70%);
 }
 .login-shell.has-photo .login-card { position: relative; z-index: 2; }
 
