@@ -49,7 +49,10 @@ export default function CategoriesClient({ initialCategories, canDelete = true }
   return (
     <>
       <div className="admin-panel">
-        <h2>Add a Department</h2>
+        <h2>Add a New Department</h2>
+        <p style={{ fontSize: '0.85rem', color: 'var(--gray)', marginBottom: 16 }}>
+          Only use this form for a department that doesn&apos;t exist yet. To add or change the photo on an <strong>existing</strong> department (like Groceries or Beverages), scroll down to &quot;All Departments&quot; and upload it directly on that row.
+        </p>
         {error && <div className="form-error">{error}</div>}
         <form onSubmit={handleAdd}>
           <div className="form-row">
@@ -73,11 +76,13 @@ export default function CategoriesClient({ initialCategories, canDelete = true }
           <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>No departments yet — add your first one above.</p>
         ) : (
           <table className="admin-table">
-            <thead><tr><th></th><th>Name</th><th>Description</th><th></th></tr></thead>
+            <thead><tr><th>Photo</th><th>Name</th><th>Description</th><th></th></tr></thead>
             <tbody>
               {categories.map((cat) => (
                 <tr key={cat.id}>
-                  <td>{cat.imageUrl ? <img src={cat.imageUrl} alt="" className="thumb" /> : '—'}</td>
+                  <td style={{ minWidth: 140 }}>
+                    <ImageUploadField value={cat.imageUrl} onChange={(url) => updateCategory(cat.id, { imageUrl: url })} />
+                  </td>
                   <td>
                     <input
                       type="text" defaultValue={cat.name}

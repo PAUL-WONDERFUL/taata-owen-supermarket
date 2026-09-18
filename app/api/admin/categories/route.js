@@ -19,6 +19,16 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Name and description are required.' }, { status: 400 });
   }
 
+  const existing = await prisma.category.findFirst({
+    where: { name: { equals: name, mode: 'insensitive' } },
+  });
+  if (existing) {
+    return NextResponse.json(
+      { error: `A department named "${existing.name}" already exists. Edit its photo directly in the table below instead of adding a new one.` },
+      { status: 409 },
+    );
+  }
+
   const count = await prisma.category.count();
   const category = await prisma.category.create({
     data: {

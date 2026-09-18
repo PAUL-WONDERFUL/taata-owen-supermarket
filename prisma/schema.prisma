@@ -72,13 +72,21 @@ enum GalleryCategory {
 }
 
 model GalleryImage {
-  id         String          @id @default(cuid())
-  url        String
-  category   GalleryCategory
-  caption    String?
-  isFeatured Boolean         @default(false)
-  sortOrder  Int             @default(0)
-  createdAt  DateTime        @default(now())
+  id        String          @id @default(cuid())
+  url       String
+  category  GalleryCategory
+  caption   String?
+  sortOrder Int             @default(0)
+  createdAt DateTime        @default(now())
+}
+
+// Single-row table (id is always "singleton") for site-wide look-and-feel
+// settings that are NOT public gallery content -- e.g. the building photo
+// used as the Home splash/hero and admin login background. Super Admin only.
+model SiteSettings {
+  id                 String   @id @default("singleton")
+  backgroundImageUrl String?
+  updatedAt          DateTime @updatedAt
 }
 
 model Promotion {

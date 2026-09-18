@@ -13,6 +13,7 @@ const LINKS = [
   { href: '/admin/promotions', label: 'Promotions', roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/messages', label: 'Messages', roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/staff', label: 'Staff Accounts', roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/settings', label: 'Site Settings', roles: ['SUPER_ADMIN'] },
   { href: '/admin/account', label: 'My Account' },
 ];
 

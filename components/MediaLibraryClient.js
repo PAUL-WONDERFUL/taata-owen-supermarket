@@ -79,7 +79,6 @@ export default function MediaLibraryClient({ initialImages, canDelete = true }) 
           <div className="media-grid">
             {images.map((img) => (
               <div className="media-item" key={img.id}>
-                {img.isFeatured && <span className="featured-badge">Featured</span>}
                 <img src={img.url} alt={img.caption || ''} />
                 <div className="media-meta">
                   <input
@@ -96,10 +95,6 @@ export default function MediaLibraryClient({ initialImages, canDelete = true }) 
                   >
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.72rem', marginBottom: 6 }}>
-                    <input type="checkbox" checked={img.isFeatured} onChange={(e) => updateImage(img.id, { isFeatured: e.target.checked })} />
-                    Featured
-                  </label>
                   {canDelete && <button type="button" className="btn-danger" style={{ width: '100%' }} onClick={() => deleteImage(img.id)}>Delete</button>}
                 </div>
               </div>

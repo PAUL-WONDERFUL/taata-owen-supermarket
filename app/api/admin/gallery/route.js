@@ -23,7 +23,6 @@ export async function POST(request) {
       url,
       category,
       caption: body.caption ? String(body.caption).trim() : null,
-      isFeatured: Boolean(body.isFeatured),
       sortOrder: count,
     },
   });

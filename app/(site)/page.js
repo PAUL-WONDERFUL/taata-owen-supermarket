@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '../../lib/prisma.js';
-import { getFeaturedImage } from '../../lib/featuredImage.js';
+import { getBackgroundImageUrl } from '../../lib/siteSettings.js';
 import PromoCard from '../../components/PromoCard.js';
 import HomeSplash from '../../components/HomeSplash.js';
 
@@ -9,7 +9,7 @@ export const revalidate = 60;
 
 async function getHomeData() {
   const now = new Date();
-  const [categories, galleryPreview, promotions, featuredImage] = await Promise.all([
+  const [categories, galleryPreview, promotions, backgroundImageUrl] = await Promise.all([
     prisma.category.findMany({ orderBy: { sortOrder: 'asc' }, take: 8 }),
     prisma.galleryImage.findMany({ orderBy: { sortOrder: 'asc' }, take: 4 }),
     prisma.promotion.findMany({
@@ -17,22 +17,22 @@ async function getHomeData() {
       orderBy: { endDate: 'asc' },
       take: 3,
     }),
-    getFeaturedImage(),
+    getBackgroundImageUrl(),
   ]);
-  return { categories, galleryPreview, promotions, featuredImage };
+  return { categories, galleryPreview, promotions, backgroundImageUrl };
 }
 
 export default async function HomePage() {
-  const { categories, galleryPreview, promotions, featuredImage } = await getHomeData();
+  const { categories, galleryPreview, promotions, backgroundImageUrl } = await getHomeData();
 
   return (
     <>
-      <HomeSplash imageUrl={featuredImage?.url} />
-      <section className={`hero${featuredImage ? ' has-photo' : ''}`}>
-        {featuredImage && (
+      <HomeSplash imageUrl={backgroundImageUrl} />
+      <section className={`hero${backgroundImageUrl ? ' has-photo' : ''}`}>
+        {backgroundImageUrl && (
           <>
             <div className="hero-bg">
-              <Image src={featuredImage.url} alt="" fill sizes="100vw" priority style={{ objectFit: 'cover' }} />
+              <Image src={backgroundImageUrl} alt="" fill sizes="100vw" priority style={{ objectFit: 'cover' }} />
             </div>
             <div className="hero-scrim" />
           </>

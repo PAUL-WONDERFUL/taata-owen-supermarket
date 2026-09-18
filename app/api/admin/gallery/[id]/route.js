@@ -13,18 +13,7 @@ export async function PATCH(request, { params }) {
   const data = {};
   if (body.caption !== undefined) data.caption = body.caption ? String(body.caption).trim() : null;
   if (body.category !== undefined && VALID_CATEGORIES.includes(body.category)) data.category = body.category;
-  if (body.isFeatured !== undefined) data.isFeatured = Boolean(body.isFeatured);
   if (body.sortOrder !== undefined) data.sortOrder = Number(body.sortOrder);
-
-  // Only one photo can be "Featured" at a time -- it's used as the Home
-  // page hero/splash background and the admin login background, so a
-  // single unambiguous photo keeps both in sync.
-  if (data.isFeatured === true) {
-    await prisma.galleryImage.updateMany({
-      where: { isFeatured: true, id: { not: id } },
-      data: { isFeatured: false },
-    });
-  }
 
   const image = await prisma.galleryImage.update({ where: { id }, data });
   return NextResponse.json(image);
