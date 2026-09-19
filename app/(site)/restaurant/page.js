@@ -31,8 +31,8 @@ export default async function RestaurantPage() {
         <div className="container" style={{ gridTemplateColumns: '1fr' }}>
           <div>
             <span className="menu-tag">🍽️ Taata Owen Restaurant</span>
-            <h1>Freshly cooked meals while you shop</h1>
-            <p>Take a break from shopping and enjoy a hot meal at our in-house restaurant — local Ugandan favourites alongside quick bites and drinks.</p>
+            <h1>Freshly prepared meals, ready when you are</h1>
+            <p>From local Ugandan favourites, quick bites and refreshing drinks, our in-house restaurant makes it easy to grab a freshly prepared meal while you&apos;re shopping or on the move.</p>
           </div>
         </div>
       </section>
@@ -88,7 +88,7 @@ export default async function RestaurantPage() {
 
       <section className="cta-band">
         <div className="container">
-          <h2>Reserve a table or order ahead</h2>
+          <h2>Order ahead, Pick up fresh.</h2>
           <p>Give us a call or message us on WhatsApp.</p>
           <a href="https://wa.me/256756761585" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ background: 'var(--green-dark)', color: '#fff' }}>Message on WhatsApp</a>
         </div>

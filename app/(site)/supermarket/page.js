@@ -17,8 +17,8 @@ export default async function SupermarketPage() {
         <div className="container" style={{ gridTemplateColumns: '1fr' }}>
           <div>
             <span className="hero-eyebrow">Supermarket</span>
-            <h1>Everything we stock, by department</h1>
-            <p>A full one-stop shop for groceries and everyday essentials — no need to order online, just come see us on Nizam Road.</p>
+            <h1>Everything you need. All in one place.</h1>
+            <p>From fresh produce and pantry staples to household essentials and everyday favourites, discover the products you need across our supermarket departments all under one roof on Nizam Road.</p>
           </div>
         </div>
       </section>

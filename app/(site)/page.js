@@ -41,7 +41,8 @@ export default async function HomePage() {
           <div>
             <span className="hero-eyebrow">Jinja City&apos;s Busiest Supermarket</span>
             <h1>Everything your home needs, all under one roof</h1>
-            <p>From fresh produce and pantry staples to household goods and a full in-house restaurant — Taata Owen Supermarket has been the go-to one-stop shop on Nizam Road, Jinja.</p>
+            <p>Shop fresh. Find more. Dine well.</p>
+            <p>From everyday essentials and quality household goods to delicious meals from our in-house restaurant, Taata Owen Supermarket brings it all together under one roof.</p>
             <div className="hero-actions">
               <Link href="/contact#map" className="btn btn-primary">Get Directions</Link>
               <Link href="/restaurant" className="btn btn-outline">View Restaurant Menu</Link>
@@ -51,7 +52,7 @@ export default async function HomePage() {
             <h3>Visit Us Today</h3>
             <ul>
               <li><span className="ico">📍</span> Nizam Road, Jinja, Uganda</li>
-              <li><span className="ico">🕗</span> Open 24/7 — every day, all day</li>
+              <li><span className="ico">🕗</span> Open 24/7 — whenever you need us.</li>
               <li><span className="ico">📞</span> +256 756 761585</li>
               <li><span className="ico">🍽️</span> In-house restaurant on site</li>
             </ul>
@@ -79,9 +80,9 @@ export default async function HomePage() {
       <section>
         <div className="container">
           <div className="section-head">
-            <span className="eyebrow">Why Shop With Us</span>
+            <span className="eyebrow">WHY SHOP WITH US</span>
             <h2>A one-stop shop the whole of Jinja trusts</h2>
-            <p>We stock the everyday essentials households need most, at competitive prices, with friendly service every day of the week.</p>
+            <p>We bring together the essentials your household needs, competitive prices and friendly services you can count on every day of the week.</p>
           </div>
           <div className="grid grid-4">
             <div className="card">

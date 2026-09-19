@@ -11,7 +11,7 @@ export default function AboutPage() {
           <div>
             <span className="hero-eyebrow">About Us</span>
             <h1>Who We Are</h1>
-            <p>The story, values and people behind Jinja&apos;s favourite one-stop shop.</p>
+            <p>More than a supermarket. A part of everyday life in Jinja. Taata Owen Supermarket brings together the products, convenience and service that make everyday shopping easier all under one roof.</p>
           </div>
         </div>
       </section>
@@ -22,13 +22,13 @@ export default function AboutPage() {
             <div>
               <h2 style={{ marginBottom: 16 }}>How we started</h2>
               <p style={{ color: 'var(--gray)' }}>
-                <em>[Owner note: replace with when Taata Owen Supermarket opened and how it began.]</em>
+                <em>From an idea to a trusted shopping destination. Taata Owen Supermarket was built with a simple purpose: to make quality products and everyday essentials more accessible to households in Jinja.</em>
               </p>
             </div>
             <div>
               <h2 style={{ marginBottom: 16 }}>Our vision</h2>
               <p style={{ color: 'var(--gray)' }}>
-                <em>[Owner note: replace with the vision behind the business — what you set out to offer Jinja.]</em>
+                <em>Making everyday shopping better for Jinja. Our vision is to create a convenient, welcoming shopping experience where customers can find what they need, discover more and feel confident every time they shop with us.</em>
               </p>
             </div>
           </div>
@@ -45,12 +45,12 @@ export default function AboutPage() {
             <div className="card">
               <div className="ico-big">🛒</div>
               <h3>The Supermarket</h3>
-              <p>Taata Owen Supermarket has grown into one of Jinja City&apos;s busiest and most popular shopping destinations, known for keeping shelves fully stocked with the everyday essentials local families rely on — from fresh produce to household goods — all at fair, competitive prices.</p>
+              <p>Taata Owen Supermarket has grown into one of Jinja City&apos;s busiest and most popular shopping destinations, known for keeping shelves fully stocked with the everyday essentials local families rely on from fresh produce to household goods all at fair, competitive prices.</p>
             </div>
             <div className="card">
               <div className="ico-big">🍽️</div>
               <h3>The Restaurant</h3>
-              <p><em>[Owner note: replace with a description of the restaurant — its style of food, atmosphere, and what makes a meal here worth stopping for.]</em></p>
+              <p><em>Good food, quick service. Take it with you. Our in-house restaurant makes it easy to grab a freshly prepared meal while you&apos;re shopping. Pick up something for the road, take it home or enjoy a quick bite while your order is being prepared.</em></p>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
             <div className="card">
               <div className="ico-big">📍</div>
               <h3>Rooted on Nizam Road</h3>
-              <p><em>[Owner note: replace with anything you'd like to say about your place in the Jinja community.]</em></p>
+              <p><em>Part of Jinja. Part of your everyday. Located on Nizam Road, Taata Owen Supermarket is proud to serve the people, families and businesses that make Jinja home. We&apos;re here to make everyday shopping more convenient, one visit at a time.</em></p>
             </div>
           </div>
         </div>

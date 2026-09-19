@@ -21,8 +21,8 @@ export default async function PromotionsPage() {
         <div className="container" style={{ gridTemplateColumns: '1fr' }}>
           <div>
             <span className="hero-eyebrow">Promotions &amp; Offers</span>
-            <h1>Current deals at Taata Owen</h1>
-            <p>Special prices and limited-time offers across the supermarket and restaurant.</p>
+            <h1>Great deals, while they last.</h1>
+            <p>Discover special prices, seasonal deals and limited time offers across Taata Owen Supermarket and Restaurant. Check back regularly to see what&apos;s new.</p>
           </div>
         </div>
       </section>

@@ -12,8 +12,8 @@ export default function ContactPage() {
         <div className="container" style={{ gridTemplateColumns: '1fr' }}>
           <div>
             <span className="hero-eyebrow">Contact Us</span>
-            <h1>Visit us or get in touch</h1>
-            <p>We&apos;re on Nizam Road, Jinja — open every day of the week.</p>
+            <h1>We&apos;re here when you need us.</h1>
+            <p>Visit Taata Owen on Nizam Road, Jinja — open 24/7 for your everyday shopping and freshly prepared meals.</p>
           </div>
         </div>
       </section>

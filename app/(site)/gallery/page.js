@@ -18,7 +18,7 @@ export default async function GalleryPage() {
           <div>
             <span className="hero-eyebrow">Gallery</span>
             <h1>A look inside Taata Owen</h1>
-            <p>Hover a photo to zoom, or click it to see it full-size.</p>
+            <p>Explore the supermarket, restaurant and the spaces that make Taata Owen part of everyday life in Jinja</p>
           </div>
         </div>
       </section>
