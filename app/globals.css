@@ -218,6 +218,40 @@ nav.navbar {
   z-index: 2;
 }
 .hero.has-photo { background: none; }
+
+/* Subtle animated light sheen sweeping across the plain-gradient hero
+   (skipped when a real background photo is active) -- same on every
+   screen size since it's built with CSS rather than relying on how a
+   browser happens to render the gradient. GPU-friendly (transform only). */
+.hero:not(.has-photo)::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.10) 45%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.10) 55%,
+    transparent 70%
+  );
+  transform: rotate(12deg) translateX(-120%);
+  animation: hero-sheen 7s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+@keyframes hero-sheen {
+  0% { transform: rotate(12deg) translateX(-120%); }
+  45% { transform: rotate(12deg) translateX(220%); }
+  100% { transform: rotate(12deg) translateX(220%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero:not(.has-photo)::before { animation: none; }
+}
 .hero.has-photo .hero-eyebrow,
 .hero.has-photo h1,
 .hero.has-photo p {
