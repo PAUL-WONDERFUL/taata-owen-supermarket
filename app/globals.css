@@ -265,7 +265,7 @@ nav.navbar {
   /* Warm, neutral charcoal instead of the brand red -- a photo overlay
      reads classier in a tone that doesn't compete with the image itself.
      The red stays everywhere else (buttons, nav, plain-colour heroes). */
-  background: linear-gradient(135deg, rgba(20, 16, 14, 0.72), rgba(46, 34, 24, 0.4) 70%);
+  background: linear-gradient(135deg, rgba(20, 16, 14, 0.84), rgba(46, 34, 24, 0.56) 70%);
 }
 .hero-eyebrow {
   display: inline-block;
