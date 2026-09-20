@@ -90,7 +90,7 @@ export default async function RestaurantPage() {
         <div className="container">
           <h2>Order ahead, Pick up fresh.</h2>
           <p>Give us a call or message us on WhatsApp.</p>
-          <a href="https://wa.me/256756761585" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ background: 'var(--green-dark)', color: '#fff' }}>Message on WhatsApp</a>
+          <a href="https://wa.me/256756761585" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ background: 'var(--red-dark)', color: '#fff' }}>Message on WhatsApp</a>
         </div>
       </section>
     </>

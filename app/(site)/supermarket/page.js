@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { prisma } from '../../../lib/prisma.js';
 
 export const revalidate = 60;
@@ -30,7 +31,7 @@ export default async function SupermarketPage() {
           ) : (
             <div className="grid grid-4">
               {categories.map((cat) => (
-                <div className="dept-card" key={cat.id}>
+                <Link href={`/supermarket/${cat.slug}`} className="dept-card" key={cat.id}>
                   <div className="dept-thumb">
                     {cat.imageUrl ? (
                       <Image src={cat.imageUrl} alt={cat.name} fill sizes="(max-width: 600px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
@@ -40,7 +41,7 @@ export default async function SupermarketPage() {
                     <h4>{cat.name}</h4>
                     <p>{cat.description}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

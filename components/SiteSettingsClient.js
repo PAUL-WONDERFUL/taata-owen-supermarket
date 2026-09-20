@@ -31,10 +31,10 @@ export default function SiteSettingsClient({ initialBackgroundImageUrl }) {
       </p>
       <ImageUploadField label="Background Photo" value={imageUrl} onChange={handleChange} />
       {saving && <span style={{ fontSize: '0.8rem', color: 'var(--gray)' }}>Saving…</span>}
-      {saved && !saving && <span style={{ fontSize: '0.8rem', color: 'var(--green)' }}>Saved.</span>}
+      {saved && !saving && <span style={{ fontSize: '0.8rem', color: 'var(--red)' }}>Saved.</span>}
       {!imageUrl && (
         <p style={{ fontSize: '0.85rem', color: 'var(--gray)', marginTop: 12 }}>
-          No background photo set yet — the homepage will use its default green gradient until one is added.
+          No background photo set yet — the homepage will use its default red gradient until one is added.
         </p>
       )}
     </div>

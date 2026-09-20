@@ -76,7 +76,7 @@ export default function CategoriesClient({ initialCategories, canDelete = true }
           <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>No departments yet — add your first one above.</p>
         ) : (
           <table className="admin-table">
-            <thead><tr><th>Photo</th><th>Name</th><th>Description</th><th></th></tr></thead>
+            <thead><tr><th>Photo</th><th>Name</th><th>Description</th><th>Hours (if different)</th><th></th></tr></thead>
             <tbody>
               {categories.map((cat) => (
                 <tr key={cat.id}>
@@ -95,6 +95,13 @@ export default function CategoriesClient({ initialCategories, canDelete = true }
                       type="text" defaultValue={cat.description}
                       onBlur={(e) => e.target.value !== cat.description && updateCategory(cat.id, { description: e.target.value })}
                       style={{ border: '1px solid transparent', padding: '4px 6px', font: 'inherit', width: '100%' }}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text" placeholder="e.g. 8:30 AM - 10:00 PM" defaultValue={cat.operatingHours || ''}
+                      onBlur={(e) => e.target.value !== (cat.operatingHours || '') && updateCategory(cat.id, { operatingHours: e.target.value })}
+                      style={{ border: '1px solid var(--gray-light)', borderRadius: 4, padding: '4px 6px', width: '100%', fontSize: '0.85rem' }}
                     />
                   </td>
                   <td>{canDelete && <button type="button" className="btn-danger" onClick={() => deleteCategory(cat.id)}>Delete</button>}</td>

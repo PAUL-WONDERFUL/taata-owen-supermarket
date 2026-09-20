@@ -15,7 +15,7 @@ export default function VariantEditor({ variants, onChange }) {
 
   return (
     <div style={{ border: '1px solid var(--gray-light)', borderRadius: 8, padding: 12, marginBottom: 16 }}>
-      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--green-dark)', display: 'block', marginBottom: 8 }}>
+      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--red-dark)', display: 'block', marginBottom: 8 }}>
         Size / Price Options
       </label>
       {variants.map((v, i) => (

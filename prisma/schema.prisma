@@ -17,11 +17,27 @@ model AdminUser {
 }
 
 model Category {
+  id             String    @id @default(cuid())
+  name           String
+  slug           String    @unique
+  description    String
+  imageUrl       String?
+  operatingHours String? // optional override shown on the category page, e.g. "8:30 AM - 10:00 PM", when this department's hours differ from the rest of the store
+  sortOrder      Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  products       Product[]
+}
+
+model Product {
   id          String   @id @default(cuid())
   name        String
-  slug        String   @unique
-  description String
+  description String?
+  price       Int? // optional -- many everyday grocery prices aren't posted publicly
   imageUrl    String?
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  isAvailable Boolean  @default(true)
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

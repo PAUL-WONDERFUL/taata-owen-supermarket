@@ -13,7 +13,7 @@ function getStatus(promo) {
   const end = new Date(promo.endDate);
   if (now < start) return { label: 'Scheduled', color: 'var(--gold-dark)' };
   if (now > end) return { label: 'Expired', color: 'var(--gray)' };
-  return { label: 'Active', color: 'var(--green)' };
+  return { label: 'Active', color: 'var(--red)' };
 }
 
 export default function PromotionsClient({ initialPromotions }) {

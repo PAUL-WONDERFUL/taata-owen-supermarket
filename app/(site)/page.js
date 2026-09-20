@@ -85,26 +85,26 @@ export default async function HomePage() {
             <p>We bring together the essentials your household needs, competitive prices and friendly services you can count on every day of the week.</p>
           </div>
           <div className="grid grid-4">
-            <div className="card">
+            <Link href="/supermarket" className="card card-link">
               <div className="ico-big">🥦</div>
               <h3>Fresh Produce</h3>
               <p>Fresh fruits and vegetables sourced daily to keep your kitchen stocked.</p>
-            </div>
-            <div className="card">
-              <div className="ico-big">🛒</div>
-              <h3>Fully Stocked</h3>
-              <p>Groceries, household goods and everyday essentials, all in one place.</p>
-            </div>
-            <div className="card">
-              <div className="ico-big">💰</div>
-              <h3>Competitive Prices</h3>
-              <p>Fair, honest pricing on the products Jinja families rely on.</p>
-            </div>
-            <div className="card">
+            </Link>
+            <Link href="/restaurant" className="card card-link">
               <div className="ico-big">🍽️</div>
               <h3>In-House Restaurant</h3>
               <p>Take a break and enjoy a meal at our on-site restaurant while you shop.</p>
-            </div>
+            </Link>
+            <Link href="/promotions" className="card card-link">
+              <div className="ico-big">🏷️</div>
+              <h3>Latest Offers</h3>
+              <p>Check out our current promotions and special prices before you shop.</p>
+            </Link>
+            <Link href="/contact#map" className="card card-link">
+              <div className="ico-big">📍</div>
+              <h3>Visit Us</h3>
+              <p>Find directions, opening hours and contact details for our Nizam Road store.</p>
+            </Link>
           </div>
         </div>
       </section>
@@ -121,7 +121,7 @@ export default async function HomePage() {
           ) : (
             <div className="grid grid-4">
               {categories.map((cat) => (
-                <div className="dept-card" key={cat.id}>
+                <Link href={`/supermarket/${cat.slug}`} className="dept-card" key={cat.id}>
                   <div className="dept-thumb">
                     {cat.imageUrl ? (
                       <Image src={cat.imageUrl} alt={cat.name} fill sizes="(max-width: 600px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
@@ -131,7 +131,7 @@ export default async function HomePage() {
                     <h4>{cat.name}</h4>
                     <p>{cat.description}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
@@ -185,7 +185,7 @@ export default async function HomePage() {
         <div className="container">
           <h2>Hungry while you shop?</h2>
           <p>Visit our in-house restaurant for a freshly cooked meal.</p>
-          <Link href="/restaurant" className="btn btn-primary" style={{ background: 'var(--green-dark)', color: '#fff' }}>See the Menu</Link>
+          <Link href="/restaurant" className="btn btn-primary" style={{ background: 'var(--red-dark)', color: '#fff' }}>See the Menu</Link>
         </div>
       </section>
     </>

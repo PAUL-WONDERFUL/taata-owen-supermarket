@@ -12,6 +12,7 @@ export async function PATCH(request, { params }) {
   if (body.name !== undefined) data.name = String(body.name).trim();
   if (body.description !== undefined) data.description = String(body.description).trim();
   if (body.imageUrl !== undefined) data.imageUrl = body.imageUrl || null;
+  if (body.operatingHours !== undefined) data.operatingHours = body.operatingHours ? String(body.operatingHours).trim() : null;
   if (body.sortOrder !== undefined) data.sortOrder = Number(body.sortOrder);
 
   const category = await prisma.category.update({ where: { id }, data });

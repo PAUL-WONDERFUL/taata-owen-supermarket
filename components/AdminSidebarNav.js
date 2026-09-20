@@ -8,6 +8,7 @@ const LINKS = [
   { href: '/admin', label: 'Overview' },
   { href: '/admin/media', label: 'Media Library' },
   { href: '/admin/categories', label: 'Categories' },
+  { href: '/admin/products', label: 'Products' },
   { href: '/admin/menu', label: 'Restaurant Menu' },
   { href: '/admin/menu-categories', label: 'Menu Sections' },
   { href: '/admin/promotions', label: 'Promotions', roles: ['SUPER_ADMIN', 'MANAGER'] },

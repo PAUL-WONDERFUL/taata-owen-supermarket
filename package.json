@@ -8,7 +8,8 @@
     "postinstall": "prisma generate",
     "seed": "node prisma/seed.js",
     "create-admin": "node scripts/create-admin.js",
-    "import-menu": "node scripts/import-menu.js"
+    "import-menu": "node scripts/import-menu.js",
+    "seed-sample-products": "node scripts/seed-sample-products.js"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",

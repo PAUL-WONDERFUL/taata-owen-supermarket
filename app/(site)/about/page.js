@@ -86,7 +86,7 @@ export default function AboutPage() {
         <div className="container">
           <h2>Come see us on Nizam Road</h2>
           <p>We&apos;d love to welcome you in store.</p>
-          <a href="/contact#map" className="btn btn-primary" style={{ background: 'var(--green-dark)', color: '#fff' }}>Get Directions</a>
+          <a href="/contact#map" className="btn btn-primary" style={{ background: 'var(--red-dark)', color: '#fff' }}>Get Directions</a>
         </div>
       </section>
     </>
