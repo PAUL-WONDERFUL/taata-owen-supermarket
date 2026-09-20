@@ -32,7 +32,7 @@ export default async function HomePage() {
         {backgroundImageUrl && (
           <>
             <div className="hero-bg">
-              <Image src={backgroundImageUrl} alt="" fill sizes="100vw" priority style={{ objectFit: 'cover' }} />
+              <Image src={backgroundImageUrl} alt="" fill sizes="100vw" quality={90} priority style={{ objectFit: 'cover' }} />
             </div>
             <div className="hero-scrim" />
           </>

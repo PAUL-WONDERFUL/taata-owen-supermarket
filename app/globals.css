@@ -172,7 +172,7 @@ nav.navbar {
     right: 0;
     bottom: 0;
     width: 40vw;
-    background: rgba(20, 61, 36, 0.68);
+    background: rgba(122, 12, 12, 0.68);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     flex-direction: column;
@@ -262,7 +262,7 @@ nav.navbar {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(20, 61, 36, 0.55), rgba(31, 122, 61, 0.42) 70%);
+  background: linear-gradient(135deg, rgba(122, 12, 12, 0.55), rgba(200, 16, 46, 0.42) 70%);
 }
 .hero-eyebrow {
   display: inline-block;
@@ -426,7 +426,7 @@ section { padding: 72px 0; }
   padding: 56px 0;
 }
 .cta-band h2 { color: var(--red-dark); margin-bottom: 10px; }
-.cta-band p { margin-bottom: 26px; color: rgba(20,61,36,0.85); }
+.cta-band p { margin-bottom: 26px; color: rgba(122,12,12,0.85); }
 
 /* ===== Promotions ===== */
 .promo-card {
@@ -672,7 +672,7 @@ footer a:hover { color: var(--gold); }
   bottom: 22px;
   right: 22px;
   z-index: 90;
-  background: rgba(20, 61, 36, 0.55);
+  background: rgba(122, 12, 12, 0.55);
   border-color: rgba(255, 255, 255, 0.25);
 }
 @media (max-width: 600px) {
@@ -691,7 +691,7 @@ footer a:hover { color: var(--gold); }
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(20, 61, 36, 0.55);
+  background: rgba(122, 12, 12, 0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -739,7 +739,7 @@ footer a:hover { color: var(--gold); }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(20, 61, 36, 0.55), rgba(31, 122, 61, 0.42) 70%);
+  background: linear-gradient(135deg, rgba(122, 12, 12, 0.55), rgba(200, 16, 46, 0.42) 70%);
 }
 .login-shell.has-photo .login-card { position: relative; z-index: 2; }
 

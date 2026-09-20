@@ -47,7 +47,7 @@ export default async function RestaurantPage() {
                 {category.imageUrl && (
                   <>
                     <div className="menu-section-bg">
-                      <Image src={category.imageUrl} alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} />
+                      <Image src={category.imageUrl} alt="" fill sizes="100vw" quality={90} style={{ objectFit: 'cover' }} />
                     </div>
                     <div className="menu-section-scrim" />
                   </>

@@ -34,7 +34,7 @@ export default function AdminLoginForm({ imageUrl }) {
       {imageUrl && (
         <>
           <div className="login-shell-bg">
-            <Image src={imageUrl} alt="" fill sizes="100vw" priority style={{ objectFit: 'cover' }} />
+            <Image src={imageUrl} alt="" fill sizes="100vw" quality={90} priority style={{ objectFit: 'cover' }} />
           </div>
           <div className="login-shell-scrim" />
         </>
