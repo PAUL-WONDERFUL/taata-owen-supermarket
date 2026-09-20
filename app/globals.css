@@ -264,8 +264,16 @@ nav.navbar {
   z-index: 1;
   /* Warm, neutral charcoal instead of the brand red -- a photo overlay
      reads classier in a tone that doesn't compete with the image itself.
-     The red stays everywhere else (buttons, nav, plain-colour heroes). */
-  background: linear-gradient(135deg, rgba(20, 16, 14, 0.84), rgba(46, 34, 24, 0.56) 70%);
+     The red stays everywhere else (buttons, nav, plain-colour heroes).
+     Only darkened where the text column actually sits (left side); the
+     rest of the photo is left clear for a cleaner, more professional look. */
+  background: linear-gradient(
+    90deg,
+    rgba(20, 16, 14, 0.8) 0%,
+    rgba(20, 16, 14, 0.5) 32%,
+    rgba(20, 16, 14, 0.12) 58%,
+    transparent 72%
+  );
 }
 .hero-eyebrow {
   display: inline-block;
@@ -313,6 +321,18 @@ nav.navbar {
 
 @media (max-width: 860px) {
   .hero .container { grid-template-columns: 1fr; }
+  /* Mobile stacks text above the opaque white card instead of beside it,
+     so the fade needs to run top-to-bottom (dark behind the text) rather
+     than left-to-right. */
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 16, 14, 0.8) 0%,
+      rgba(20, 16, 14, 0.45) 35%,
+      rgba(20, 16, 14, 0.1) 55%,
+      transparent 68%
+    );
+  }
 }
 
 /* ===== Section basics ===== */
