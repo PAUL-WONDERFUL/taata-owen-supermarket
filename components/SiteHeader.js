@@ -18,6 +18,14 @@ const NAV_LINKS = [
 export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -27,7 +35,7 @@ export default function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className={`site-header${scrolled ? ' scrolled' : ''}`}>
       <nav className="navbar container">
         <Link href="/" className="logo">
           <Image src="/images/logo-sm.png" alt="Taata Owen Supermarket logo" width={140} height={124} className="logo-img" priority />
